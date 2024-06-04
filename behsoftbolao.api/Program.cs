@@ -1,3 +1,5 @@
+using BehSoft.DataAccess.Repository;
+using BehSoft.DataAccess.Repository.IRepository;
 using behsoftbolao.api.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Hosting;
@@ -12,8 +14,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddDbContext<BolaoDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PgBolaoConString")));
+
 builder.AddNpgsqlDbContext<BolaoDbContext>("Aspire:Npgsql:EntityFrameworkCore:PostgreSQL");
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);// timestamp with timezone
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => options.TokenValidationParameters= new TokenValidationParameters
@@ -26,6 +29,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     });
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
