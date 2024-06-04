@@ -18,9 +18,9 @@ public class BolaoRepository : Repository<Bolao>, IBolaoRepository
         _db = db;
     }
 
-    public void Update(Bolao product)
+    public void Update(Bolao bolao)
     {
-        var objFromDb = _db.Boloes.FirstOrDefault(p => p.Id == product.Id);
+        var objFromDb = _db.Boloes.FirstOrDefault(p => p.Id == bolao.Id);
         if (objFromDb != null)
         {/*
             objFromDb.Title = product.Title;
@@ -39,4 +39,6 @@ public class BolaoRepository : Repository<Bolao>, IBolaoRepository
             //_db.Products.Update(objFromDb);//*/
         }
     }
+
+
 }

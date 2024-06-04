@@ -19,9 +19,9 @@ namespace behsoftbolao.api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var boloes = _unityOfWork.Bolao.GetAll();
+            var boloes = await _unityOfWork.Bolao.GetAll();
 
             // mapear domain model para dto
             List<ReadBolaoDto> boloesDtos = new();
@@ -38,10 +38,10 @@ namespace behsoftbolao.api.Controllers
         }
 
         [HttpGet("{codigo}")]
-        public IActionResult GetByCodigo([FromRoute] string codigo)
+        public async Task<IActionResult> GetByCodigo([FromRoute] string codigo)
         {
             // domain model
-            var bolao = _unityOfWork.Bolao.Get(b => b.Codigo == codigo);
+            var bolao = await _unityOfWork.Bolao.Get(b => b.Codigo.ToUpper() == codigo.ToUpper());
 
             if (bolao == null)
             {
@@ -61,21 +61,21 @@ namespace behsoftbolao.api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateBolaoDto bolaoDto)
+        public async Task<IActionResult> Create([FromBody] CreateBolaoDto bolaoDto)
         {
             // map dto to domain model
             var dm = new Bolao
             {
                 Titulo = bolaoDto.Titulo,
                 DonoId = bolaoDto.DonoId,
-                Codigo = StringUtils.RandomAlfaString(6),
+                Codigo = bolaoDto.Codigo,
                 CampeonatoAnualId = bolaoDto.CampeonatoAnualId,
                 CriadoEm = DateTime.Now
             };
 
             // use domain model to create region
-            _unityOfWork.Bolao.Add(dm);
-            _unityOfWork.Save();
+            await _unityOfWork.Bolao.Add(dm);
+            await _unityOfWork.Save();
 
             // map domain back to dto
             var result = new ReadBolaoDto

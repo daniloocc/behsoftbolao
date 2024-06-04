@@ -11,5 +11,5 @@ public interface IUnitOfWork
     ICampeonatoRepository Campeonato { get; }
     ICampeonatoAnualRepository CampeonatoAnual { get; }
     IBolaoRepository Bolao { get; }
-    void Save();
+    Task Save();
 }

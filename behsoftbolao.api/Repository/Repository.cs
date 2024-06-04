@@ -16,12 +16,12 @@ public class Repository<T> : IRepository<T> where T : class
         this.dbSet = _dbContext.Set<T>();
         //_dbContext.Categories == dbSet;
     }
-    public void Add(T entity)
+    public async Task Add(T entity)
     {
-        this.dbSet.Add(entity);
+        await this.dbSet.AddAsync(entity);
     }
 
-    public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
+    public async Task<T?> Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
     {
         IQueryable<T> query = this.dbSet.AsQueryable();
         query = query.Where(filter);
@@ -33,10 +33,10 @@ public class Repository<T> : IRepository<T> where T : class
                 query = query.Include(includeProp);
             }
         }
-        return query.FirstOrDefault();
+        return await query.FirstOrDefaultAsync();
     }
 
-    public IEnumerable<T> GetAll(string? includeProperties = null)
+    public async Task<IEnumerable<T>> GetAll(string? includeProperties = null)
     {
         IQueryable<T> query = this.dbSet;
         if(!string.IsNullOrEmpty(includeProperties))
@@ -47,7 +47,7 @@ public class Repository<T> : IRepository<T> where T : class
                 query = query.Include(includeProp);
             }
         }
-        return query.ToList();
+        return await query.ToListAsync();
     }
 
     public void Remove(T entity)

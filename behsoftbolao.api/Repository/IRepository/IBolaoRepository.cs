@@ -5,5 +5,5 @@ namespace BehSoft.DataAccess.Repository.IRepository;
 
 public interface IBolaoRepository : IRepository<Bolao>
 {
-    void Update(Bolao product);
+    void Update(Bolao bolao);
 }
