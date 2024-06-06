@@ -60,26 +60,26 @@ namespace behsoftbolao.api.Migrations
 
                     b.HasIndex("DonoId");
 
-                    b.ToTable("Boloes");
+                    b.ToTable("Boloes", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2794e6ae-6824-4c24-addf-7b2f62d81c41"),
-                            CampeonatoAnualId = new Guid("cca0d45e-6cb1-4227-90f8-90d1b99fa589"),
+                            Id = new Guid("3d80aad3-54df-40f6-911e-b47d0254050a"),
+                            CampeonatoAnualId = new Guid("70eb28a3-833f-4a63-8d6f-b1dcf9660111"),
                             Codigo = "BANESE",
-                            CriadoEm = new DateTime(2024, 6, 4, 11, 6, 4, 919, DateTimeKind.Local).AddTicks(50),
-                            DonoId = "e4684961-3831-4b37-9987-f67292adca63",
+                            CriadoEm = new DateTime(2024, 6, 6, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            DonoId = "29784a75-4721-4da4-b8b7-d167c588d5cf",
                             Titulo = "Bolão do Banese 2024",
                             Updated = false
                         },
                         new
                         {
-                            Id = new Guid("3194c198-b7e0-48ac-b698-14fe63e5d381"),
-                            CampeonatoAnualId = new Guid("cca0d45e-6cb1-4227-90f8-90d1b99fa589"),
+                            Id = new Guid("a979e67e-0313-46ff-b952-91568c6767fd"),
+                            CampeonatoAnualId = new Guid("70eb28a3-833f-4a63-8d6f-b1dcf9660111"),
                             Codigo = "JUNCOS",
-                            CriadoEm = new DateTime(2024, 6, 4, 11, 6, 4, 919, DateTimeKind.Local).AddTicks(63),
-                            DonoId = "e4684961-3831-4b37-9987-f67292adca63",
+                            CriadoEm = new DateTime(2024, 6, 6, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            DonoId = "29784a75-4721-4da4-b8b7-d167c588d5cf",
                             Titulo = "Bolão do Junco",
                             Updated = false
                         });
@@ -105,14 +105,14 @@ namespace behsoftbolao.api.Migrations
                     b.HasIndex("CampeonatoId", "Ano")
                         .IsUnique();
 
-                    b.ToTable("CampeonatoAnual");
+                    b.ToTable("CampeonatoAnual", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cca0d45e-6cb1-4227-90f8-90d1b99fa589"),
+                            Id = new Guid("70eb28a3-833f-4a63-8d6f-b1dcf9660111"),
                             Ano = 2026,
-                            CampeonatoId = new Guid("c3d7a609-49ea-46b9-b08e-d332132ddbd7")
+                            CampeonatoId = new Guid("9dc2938e-c245-43a2-bb8b-fe58f6c09a9d")
                         });
                 });
 
@@ -148,7 +148,7 @@ namespace behsoftbolao.api.Migrations
 
                     b.HasIndex("TimeUmId");
 
-                    b.ToTable("Jogo");
+                    b.ToTable("Jogo", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Palpite", b =>
@@ -179,7 +179,7 @@ namespace behsoftbolao.api.Migrations
                     b.HasIndex("ParticipanteID", "JogoId")
                         .IsUnique();
 
-                    b.ToTable("Palpites");
+                    b.ToTable("Palpites", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Participante", b =>
@@ -208,7 +208,7 @@ namespace behsoftbolao.api.Migrations
                     b.HasIndex("UsuarioId", "BolaoId")
                         .IsUnique();
 
-                    b.ToTable("Participante");
+                    b.ToTable("Participante", (string)null);
                 });
 
             modelBuilder.Entity("Database.Models.Campeonato", b =>
@@ -229,24 +229,24 @@ namespace behsoftbolao.api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Campeonato");
+                    b.ToTable("Campeonato", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c3d7a609-49ea-46b9-b08e-d332132ddbd7"),
+                            Id = new Guid("9dc2938e-c245-43a2-bb8b-fe58f6c09a9d"),
                             Nome = "Copa do Mundo",
                             Sigla = "FWC"
                         },
                         new
                         {
-                            Id = new Guid("7214a1fc-bb8d-45d9-aa16-a2667ee04546"),
+                            Id = new Guid("f28d4dc4-5198-41ce-b785-286d589ceca6"),
                             Nome = "Brasileirão - Série A",
                             Sigla = "BRA-A"
                         },
                         new
                         {
-                            Id = new Guid("0533d7c1-26d3-48c7-a03b-cc70e1765c9e"),
+                            Id = new Guid("c9df5ae9-6c93-4f6c-ab09-a145faa599da"),
                             Nome = "Brasileirão - Série B",
                             Sigla = "BRA-B"
                         });
@@ -272,7 +272,7 @@ namespace behsoftbolao.api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Time");
+                    b.ToTable("Time", (string)null);
                 });
 
             modelBuilder.Entity("Database.Models.Usuario", b =>
@@ -283,8 +283,15 @@ namespace behsoftbolao.api.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
+                    b.Property<string>("AvatarUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("timestamp without time zone");
@@ -331,20 +338,23 @@ namespace behsoftbolao.api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("Usuarios", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = "e4684961-3831-4b37-9987-f67292adca63",
+                            Id = "29784a75-4721-4da4-b8b7-d167c588d5cf",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1d932d97-a251-4f34-a626-72ac606f3e3d",
+                            AvatarUrl = "https://ui-avatars.com/api/?background=random&name=Admin",
+                            ConcurrencyStamp = "40775525-ea1d-4e6f-bfe4-f0c23461b250",
+                            CriadoEm = new DateTime(2024, 6, 6, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             DataNascimento = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Nome = "Admin",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a78199f3-4aba-44f5-a418-23a55e919227",
+                            SecurityStamp = "d9f30982-33ec-4282-8cd5-b1adee7bb54a",
                             TwoFactorEnabled = false
                         });
                 });

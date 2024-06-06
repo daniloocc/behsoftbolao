@@ -1,5 +1,7 @@
 ﻿using Core.Models;
+using Core.Utils;
 using Database.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 
@@ -44,46 +46,46 @@ public class BolaoDbContext : DbContext
     public DbSet<Campeonato> Campeonato { get; set; }
     public DbSet<CampeonatoAnual> CampeonatoAnual { get; set; }
 
-
-
-
     private void GerarSeed(ModelBuilder modelBuilder)
     {
         var campeonatos = new[] {
-            new Campeonato() { Id = Guid.NewGuid(), Nome = "Copa do Mundo", Sigla = "FWC" },
-            new Campeonato() { Id = Guid.NewGuid(), Nome = "Brasileirão - Série A", Sigla = "BRA-A" },
-            new Campeonato() { Id = Guid.NewGuid(), Nome = "Brasileirão - Série B", Sigla = "BRA-B" }
+            new Campeonato() { Id = new Guid("9dc2938e-c245-43a2-bb8b-fe58f6c09a9d"), Nome = "Copa do Mundo", Sigla = "FWC" },
+            new Campeonato() { Id = new Guid("f28d4dc4-5198-41ce-b785-286d589ceca6"), Nome = "Brasileirão - Série A", Sigla = "BRA-A" },
+            new Campeonato() { Id = new Guid("c9df5ae9-6c93-4f6c-ab09-a145faa599da"), Nome = "Brasileirão - Série B", Sigla = "BRA-B" }
         };
         modelBuilder.Entity<Campeonato>().HasData(campeonatos);
 
-        var campeonato = new CampeonatoAnual { Id = Guid.NewGuid(), Ano = 2026, CampeonatoId = campeonatos[0].Id };
+        var campeonato = new CampeonatoAnual { Id = new Guid("70eb28a3-833f-4a63-8d6f-b1dcf9660111"), Ano = 2026, CampeonatoId = campeonatos[0].Id };
         modelBuilder.Entity<CampeonatoAnual>().HasData(campeonato);
 
         var usuario = new Usuario
         {
-            Id = Guid.NewGuid().ToString(),
-            Nome = "Admin"
+            Id = new Guid("29784a75-4721-4da4-b8b7-d167c588d5cf").ToString(),
+            Nome = "Admin",
+            CriadoEm = new DateTime(2024, 06, 06, 8, 0, 0),
+            Email = "admin@gmail.com",
+            AvatarUrl = AvatarUtils.GetAvatarPorNome("Admin")
         };
         modelBuilder.Entity<Usuario>().HasData(usuario);
 
         var boloes = new[] {
          new Bolao
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("3d80aad3-54df-40f6-911e-b47d0254050a"),
                 Titulo = "Bolão do Banese 2024",
                 Codigo = "BANESE",
                 DonoId = usuario.Id,
                 CampeonatoAnualId = campeonato.Id,
-                CriadoEm = DateTime.Now,
+                CriadoEm = new DateTime(2024, 06, 06, 8, 0, 0),
             },
             new Bolao
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("a979e67e-0313-46ff-b952-91568c6767fd"),
                 Titulo = "Bolão do Junco",
                 Codigo = "JUNCOS",
                 DonoId = usuario.Id,
                 CampeonatoAnualId = campeonato.Id,
-                CriadoEm = DateTime.Now,
+                CriadoEm = new DateTime(2024, 06, 06, 8, 0, 0),
             }};
         modelBuilder.Entity<Bolao>().HasData(boloes);
     }

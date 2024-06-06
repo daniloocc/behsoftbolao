@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace behsoftbolao.api.Migrations
 {
     /// <inheritdoc />
@@ -44,7 +46,9 @@ namespace behsoftbolao.api.Migrations
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
                     Nome = table.Column<string>(type: "text", nullable: false),
-                    DataNascimento = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AvatarUrl = table.Column<string>(type: "text", nullable: false),
+                    DataNascimento = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CriadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UserName = table.Column<string>(type: "text", nullable: true),
                     NormalizedUserName = table.Column<string>(type: "text", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: true),
@@ -71,7 +75,7 @@ namespace behsoftbolao.api.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Ano = table.Column<int>(type: "integer", nullable: false),
-                    DataEncerramento = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DataEncerramento = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     CampeonatoId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -92,7 +96,7 @@ namespace behsoftbolao.api.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Titulo = table.Column<string>(type: "text", nullable: false),
                     Codigo = table.Column<string>(type: "character varying(6)", maxLength: 6, nullable: false),
-                    CriadoEm = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CriadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Updated = table.Column<bool>(type: "boolean", nullable: false),
                     DonoId = table.Column<string>(type: "text", nullable: false),
                     CampeonatoAnualId = table.Column<Guid>(type: "uuid", nullable: false)
@@ -119,7 +123,7 @@ namespace behsoftbolao.api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Data = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Data = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     PlacarTimeUm = table.Column<int>(type: "integer", nullable: true),
                     PlacarTimeDois = table.Column<int>(type: "integer", nullable: true),
                     CampeonatoAnualId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -153,7 +157,7 @@ namespace behsoftbolao.api.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Pontuacao = table.Column<int>(type: "integer", nullable: true),
-                    CriadoEm = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CriadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     BolaoId = table.Column<Guid>(type: "uuid", nullable: false),
                     UsuarioId = table.Column<string>(type: "text", nullable: false)
                 },
@@ -181,7 +185,7 @@ namespace behsoftbolao.api.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     PontosTimeUm = table.Column<int>(type: "integer", nullable: true),
                     PontosTimeDois = table.Column<int>(type: "integer", nullable: true),
-                    CriadoEm = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CriadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     ParticipanteID = table.Column<Guid>(type: "uuid", nullable: false),
                     JogoId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -202,6 +206,35 @@ namespace behsoftbolao.api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Campeonato",
+                columns: new[] { "Id", "Nome", "Sigla" },
+                values: new object[,]
+                {
+                    { new Guid("9dc2938e-c245-43a2-bb8b-fe58f6c09a9d"), "Copa do Mundo", "FWC" },
+                    { new Guid("c9df5ae9-6c93-4f6c-ab09-a145faa599da"), "Brasileirão - Série B", "BRA-B" },
+                    { new Guid("f28d4dc4-5198-41ce-b785-286d589ceca6"), "Brasileirão - Série A", "BRA-A" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Usuarios",
+                columns: new[] { "Id", "AccessFailedCount", "AvatarUrl", "ConcurrencyStamp", "CriadoEm", "DataNascimento", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Nome", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "29784a75-4721-4da4-b8b7-d167c588d5cf", 0, "https://ui-avatars.com/api/?background=random&name=Admin", "40775525-ea1d-4e6f-bfe4-f0c23461b250", new DateTime(2024, 6, 6, 8, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@gmail.com", false, false, null, "Admin", null, null, null, null, false, "d9f30982-33ec-4282-8cd5-b1adee7bb54a", false, null });
+
+            migrationBuilder.InsertData(
+                table: "CampeonatoAnual",
+                columns: new[] { "Id", "Ano", "CampeonatoId", "DataEncerramento" },
+                values: new object[] { new Guid("70eb28a3-833f-4a63-8d6f-b1dcf9660111"), 2026, new Guid("9dc2938e-c245-43a2-bb8b-fe58f6c09a9d"), null });
+
+            migrationBuilder.InsertData(
+                table: "Boloes",
+                columns: new[] { "Id", "CampeonatoAnualId", "Codigo", "CriadoEm", "DonoId", "Titulo", "Updated" },
+                values: new object[,]
+                {
+                    { new Guid("3d80aad3-54df-40f6-911e-b47d0254050a"), new Guid("70eb28a3-833f-4a63-8d6f-b1dcf9660111"), "BANESE", new DateTime(2024, 6, 6, 8, 0, 0, 0, DateTimeKind.Unspecified), "29784a75-4721-4da4-b8b7-d167c588d5cf", "Bolão do Banese 2024", false },
+                    { new Guid("a979e67e-0313-46ff-b952-91568c6767fd"), new Guid("70eb28a3-833f-4a63-8d6f-b1dcf9660111"), "JUNCOS", new DateTime(2024, 6, 6, 8, 0, 0, 0, DateTimeKind.Unspecified), "29784a75-4721-4da4-b8b7-d167c588d5cf", "Bolão do Junco", false }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Boloes_CampeonatoAnualId",
                 table: "Boloes",
@@ -213,9 +246,16 @@ namespace behsoftbolao.api.Migrations
                 column: "DonoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CampeonatoAnual_CampeonatoId",
+                name: "UX_codigo_bolao",
+                table: "Boloes",
+                column: "Codigo",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CampeonatoAnual_CampeonatoId_Ano",
                 table: "CampeonatoAnual",
-                column: "CampeonatoId");
+                columns: new[] { "CampeonatoId", "Ano" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Jogo_CampeonatoAnualId",
@@ -238,9 +278,10 @@ namespace behsoftbolao.api.Migrations
                 column: "JogoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Palpites_ParticipanteID",
+                name: "IX_Palpites_ParticipanteID_JogoId",
                 table: "Palpites",
-                column: "ParticipanteID");
+                columns: new[] { "ParticipanteID", "JogoId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Participante_BolaoId",
@@ -248,9 +289,10 @@ namespace behsoftbolao.api.Migrations
                 column: "BolaoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Participante_UsuarioId",
+                name: "IX_Participante_UsuarioId_BolaoId",
                 table: "Participante",
-                column: "UsuarioId");
+                columns: new[] { "UsuarioId", "BolaoId" },
+                unique: true);
         }
 
         /// <inheritdoc />
