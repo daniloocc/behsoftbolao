@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using behsoftbolao.api.Data;
@@ -11,9 +12,11 @@ using behsoftbolao.api.Data;
 namespace behsoftbolao.api.Migrations
 {
     [DbContext(typeof(BolaoDbContext))]
-    partial class BolaoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240613174615_add_seed_para_paginacao")]
+    partial class add_seed_para_paginacao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,7 +63,7 @@ namespace behsoftbolao.api.Migrations
 
                     b.HasIndex("DonoId");
 
-                    b.ToTable("Boloes", (string)null);
+                    b.ToTable("Boloes");
 
                     b.HasData(
                         new
@@ -1085,7 +1088,7 @@ namespace behsoftbolao.api.Migrations
                     b.HasIndex("CampeonatoId", "Ano")
                         .IsUnique();
 
-                    b.ToTable("CampeonatoAnual", (string)null);
+                    b.ToTable("CampeonatoAnual");
 
                     b.HasData(
                         new
@@ -1128,7 +1131,7 @@ namespace behsoftbolao.api.Migrations
 
                     b.HasIndex("TimeUmId");
 
-                    b.ToTable("Jogo", (string)null);
+                    b.ToTable("Jogo");
                 });
 
             modelBuilder.Entity("Core.Models.Palpite", b =>
@@ -1159,7 +1162,7 @@ namespace behsoftbolao.api.Migrations
                     b.HasIndex("ParticipanteID", "JogoId")
                         .IsUnique();
 
-                    b.ToTable("Palpites", (string)null);
+                    b.ToTable("Palpites");
                 });
 
             modelBuilder.Entity("Core.Models.Participante", b =>
@@ -1188,7 +1191,7 @@ namespace behsoftbolao.api.Migrations
                     b.HasIndex("UsuarioId", "BolaoId")
                         .IsUnique();
 
-                    b.ToTable("Participante", (string)null);
+                    b.ToTable("Participante");
                 });
 
             modelBuilder.Entity("Database.Models.Campeonato", b =>
@@ -1209,7 +1212,7 @@ namespace behsoftbolao.api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Campeonato", (string)null);
+                    b.ToTable("Campeonato");
 
                     b.HasData(
                         new
@@ -1252,7 +1255,7 @@ namespace behsoftbolao.api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Time", (string)null);
+                    b.ToTable("Time");
                 });
 
             modelBuilder.Entity("Database.Models.Usuario", b =>
@@ -1318,7 +1321,7 @@ namespace behsoftbolao.api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios", (string)null);
+                    b.ToTable("Usuarios");
 
                     b.HasData(
                         new

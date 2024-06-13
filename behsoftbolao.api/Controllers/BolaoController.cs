@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BehSoft.DataAccess.Repository.IRepository;
+using behsoftbolao.api.CustomActionFilters;
 using Core.Models;
 using Core.Utils;
 using DataAccess.Data.Dto;
@@ -23,9 +24,10 @@ namespace behsoftbolao.api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
+            [FromQuery] string? sortBy, [FromQuery] bool? isAscending, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 1000)
         {
-            var boloes = await _unityOfWork.Bolao.GetAll(includeProperties: "Dono,CampeonatoAnual,CampeonatoAnual.Campeonato");
+            var boloes = await _unityOfWork.Bolao.GetAll(filterOn, filterQuery, sortBy, isAscending ?? true, pageNumber, pageSize, includeProperties: "Dono,CampeonatoAnual,CampeonatoAnual.Campeonato");
 
             // mapear domain model para dto
             List<ReadBolaoDto> boloesDtos = _mapper.Map<List<ReadBolaoDto>>(boloes);
@@ -53,6 +55,7 @@ namespace behsoftbolao.api.Controllers
         }
 
         [HttpPost]
+        [ValidateModel]
         public async Task<IActionResult> Create([FromBody] CreateBolaoDto bolaoDto)
         {
             // map dto to domain model

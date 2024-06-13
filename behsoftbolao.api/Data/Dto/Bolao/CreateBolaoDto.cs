@@ -15,5 +15,5 @@ public class CreateBolaoDto
     [Required(ErrorMessage = "O dono do bolão não pode ser nulo")]
     public string DonoId { get; set; } = string.Empty;
     [Required(ErrorMessage = "O código do campeonato anual é obrigatório")]
-    public Guid CampeonatoAnualId { get; set; }
+    public Guid? CampeonatoAnualId { get; set; }
 }
