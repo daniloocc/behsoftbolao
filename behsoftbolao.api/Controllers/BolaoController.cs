@@ -4,6 +4,7 @@ using behsoftbolao.api.CustomActionFilters;
 using Core.Models;
 using Core.Utils;
 using DataAccess.Data.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static System.Reflection.Metadata.BlobBuilder;
@@ -12,6 +13,7 @@ namespace behsoftbolao.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class BolaoController : ControllerBase
     {
         private readonly IUnitOfWork _unityOfWork;

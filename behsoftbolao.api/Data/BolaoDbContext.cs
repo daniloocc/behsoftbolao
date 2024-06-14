@@ -9,7 +9,7 @@ namespace behsoftbolao.api.Data;
 
 public class BolaoDbContext : DbContext
 {
-    public BolaoDbContext(DbContextOptions options) : base(options)
+    public BolaoDbContext(DbContextOptions<BolaoDbContext> options) : base(options)
     {
 
     }

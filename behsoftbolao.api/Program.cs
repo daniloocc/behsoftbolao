@@ -3,6 +3,7 @@ using BehSoft.DataAccess.Repository.IRepository;
 using behsoftbolao.api.Data;
 using behsoftbolao.api.Mappings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
@@ -24,9 +25,31 @@ builder.Services.AddSwaggerGen();
 
 builder.AddNpgsqlDbContext<BolaoDbContext>("Aspire:Npgsql:EntityFrameworkCore:PostgreSQL");
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);// timestamp with timezone
+builder.AddNpgsqlDbContext<BolaoAuthDbContext>("Aspire:Npgsql:EntityFrameworkCore:PostgreSQL:BolaoAuthDbContext");
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
+
+builder.Services.AddIdentityCore<IdentityUser>()
+    .AddRoles<IdentityRole>()
+    .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("BsBolao")
+    .AddEntityFrameworkStores<BolaoAuthDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.Configure<IdentityOptions>(opt =>
+{
+    opt.Password.RequireDigit = false;
+    opt.Password.RequireLowercase = false;
+    opt.Password.RequireNonAlphanumeric = false;
+    opt.Password.RequireUppercase = false;
+    opt.Password.RequiredLength = 6;
+    opt.Password.RequiredUniqueChars = 1;
+});
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options => options.TokenValidationParameters= new TokenValidationParameters
+    .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
@@ -36,10 +59,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     });
-
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 var app = builder.Build();
 
