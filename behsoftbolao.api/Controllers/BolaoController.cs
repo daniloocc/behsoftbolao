@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BehSoft.DataAccess.Repository.IRepository;
 using behsoftbolao.api.CustomActionFilters;
+using behsoftbolao.api.Managers.Interfaces;
 using Core.Models;
 using Core.Utils;
 using DataAccess.Data.Dto;
@@ -13,44 +14,39 @@ namespace behsoftbolao.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class BolaoController : ControllerBase
     {
-        private readonly IUnitOfWork _unityOfWork;
-        private readonly IMapper _mapper;
+        private readonly IBolaoManager _bolaoManager;
 
-        public BolaoController(IUnitOfWork unitOfWork, IMapper mapper)
+        public BolaoController(IBolaoManager bolaoManager)
         {
-            _unityOfWork = unitOfWork;
-            _mapper = mapper;
+            _bolaoManager = bolaoManager;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
             [FromQuery] string? sortBy, [FromQuery] bool? isAscending, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 1000)
         {
-            var boloes = await _unityOfWork.Bolao.GetAll(filterOn, filterQuery, sortBy, isAscending ?? true, pageNumber, pageSize, includeProperties: "Dono,CampeonatoAnual,CampeonatoAnual.Campeonato");
-
-            // mapear domain model para dto
-            List<ReadBolaoDto> boloesDtos = _mapper.Map<List<ReadBolaoDto>>(boloes);
-
-            // retornar dto
-            return Ok(boloesDtos);
+            var boloesDto = await _bolaoManager.GetAll(filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
+            
+            return Ok(boloesDto);
         }
 
         [HttpGet("{codigo}")]
         public async Task<IActionResult> GetByCodigo([FromRoute] string codigo)
         {
-            // domain model
-            var bolao = await _unityOfWork.Bolao.Get(b => b.Codigo.ToUpper() == codigo.ToUpper(), includeProperties: "Dono,CampeonatoAnual,CampeonatoAnual.Campeonato");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
 
-            if (bolao == null)
+            var bolaoDto = await _bolaoManager.GetByCode(codigo);
+
+            if (bolaoDto == null)
             {
                 return NotFound();
             }
-
-            // map para dto
-            ReadBolaoDto bolaoDto = _mapper.Map<ReadBolaoDto>(bolao);
 
             // retornar dto
             return Ok(bolaoDto);
@@ -60,19 +56,22 @@ namespace behsoftbolao.api.Controllers
         [ValidateModel]
         public async Task<IActionResult> Create([FromBody] CreateBolaoDto bolaoDto)
         {
-            // map dto to domain model
-            var dm = _mapper.Map<Bolao>(bolaoDto);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
 
-            // use domain model to create region
-            await _unityOfWork.Bolao.Add(dm);
-            await _unityOfWork.Save();
+            var result = await _bolaoManager.InserirBolao(bolaoDto);
 
-            // map domain back to dto
-            //var result = _mapper.Map<ReadBolaoDto>(dm);
+            return CreatedAtAction(nameof(GetByCodigo), new { codigo = bolaoDto.Codigo }, result);
 
-            var result = await _unityOfWork.Bolao.Get(b => b.Codigo == dm.Codigo, includeProperties: "Dono,CampeonatoAnual,CampeonatoAnual.Campeonato");
+        }
 
-            return CreatedAtAction(nameof(GetByCodigo), new { codigo = bolaoDto.Codigo }, _mapper.Map<ReadBolaoDto>(result));
+        [HttpDelete("{idBolao}")]
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> RemoveBolao(string idBolao)
+        {
+            throw new NotImplementedException();
         }
     }
 }

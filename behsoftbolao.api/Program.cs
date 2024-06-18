@@ -1,6 +1,8 @@
 using BehSoft.DataAccess.Repository;
 using BehSoft.DataAccess.Repository.IRepository;
 using behsoftbolao.api.Data;
+using behsoftbolao.api.Managers;
+using behsoftbolao.api.Managers.Interfaces;
 using behsoftbolao.api.Mappings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -29,6 +31,7 @@ builder.AddNpgsqlDbContext<BolaoAuthDbContext>("Aspire:Npgsql:EntityFrameworkCor
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IBolaoManager, BolaoManager>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
