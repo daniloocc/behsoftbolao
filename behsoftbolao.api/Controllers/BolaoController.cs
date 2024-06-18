@@ -8,6 +8,8 @@ using DataAccess.Data.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Text.Json;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace behsoftbolao.api.Controllers
@@ -18,18 +20,22 @@ namespace behsoftbolao.api.Controllers
     public class BolaoController : ControllerBase
     {
         private readonly IBolaoManager _bolaoManager;
+        private readonly ILogger<BolaoController> _logger;
 
-        public BolaoController(IBolaoManager bolaoManager)
+        public BolaoController(IBolaoManager bolaoManager, ILogger<BolaoController> logger)
         {
             _bolaoManager = bolaoManager;
+            _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
             [FromQuery] string? sortBy, [FromQuery] bool? isAscending, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 1000)
         {
-            var boloesDto = await _bolaoManager.GetAll(filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
-            
+            _logger.LogInformation("GetAll action method was invoked");
+
+            var boloesDto = await _bolaoManager.GetAll(filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);            
+
             return Ok(boloesDto);
         }
 

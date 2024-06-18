@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Database.Models;
 
-public class Usuario : IdentityUser
+public class Usuario : IdentityUser // TODO: testar e retirar o identity user. Como agora temos dois contextos, essa atribuição pode ser inútil
 {
     [Required(ErrorMessage = "O nome é Obrigatório")]
     public string Nome { get; set; }
