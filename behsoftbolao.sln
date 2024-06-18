@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "behsoftbolao.api", "behsoftbolao.api\behsoftbolao.api.csproj", "{F9D23445-0CB4-43A4-9489-796ACD9E37E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "behsoftbolao.api", "behsoftbolao.api\behsoftbolao.api.csproj", "{F9D23445-0CB4-43A4-9489-796ACD9E37E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "behsoftbolao.web", "behsoftbolao.web\behsoftbolao.web.csproj", "{5B800D83-D8CA-4DE7-A360-F6CE027AF8B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F9D23445-0CB4-43A4-9489-796ACD9E37E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9D23445-0CB4-43A4-9489-796ACD9E37E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9D23445-0CB4-43A4-9489-796ACD9E37E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B800D83-D8CA-4DE7-A360-F6CE027AF8B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B800D83-D8CA-4DE7-A360-F6CE027AF8B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B800D83-D8CA-4DE7-A360-F6CE027AF8B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B800D83-D8CA-4DE7-A360-F6CE027AF8B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

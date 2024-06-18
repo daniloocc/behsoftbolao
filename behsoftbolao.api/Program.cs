@@ -4,6 +4,7 @@ using behsoftbolao.api.Data;
 using behsoftbolao.api.Managers;
 using behsoftbolao.api.Managers.Interfaces;
 using behsoftbolao.api.Mappings;
+using behsoftbolao.api.Middlewares;
 using behsoftbolao.api.Repository;
 using behsoftbolao.api.Repository.IRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -114,6 +115,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 
