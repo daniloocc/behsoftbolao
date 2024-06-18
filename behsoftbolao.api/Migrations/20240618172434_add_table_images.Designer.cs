@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using behsoftbolao.api.Data;
@@ -11,9 +12,11 @@ using behsoftbolao.api.Data;
 namespace behsoftbolao.api.Migrations
 {
     [DbContext(typeof(BolaoDbContext))]
-    partial class BolaoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240618172434_add_table_images")]
+    partial class add_table_images
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,4 +1,5 @@
-﻿using Core.Models;
+﻿using behsoftbolao.api.Models.Domain;
+using Core.Models;
 using Core.Utils;
 using Database.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -45,6 +46,7 @@ public class BolaoDbContext : DbContext
     public DbSet<Time> Time { get; set; }
     public DbSet<Campeonato> Campeonato { get; set; }
     public DbSet<CampeonatoAnual> CampeonatoAnual { get; set; }
+    public DbSet<Image> Images { get; set; }
 
     private void GerarSeed(ModelBuilder modelBuilder)
     {
