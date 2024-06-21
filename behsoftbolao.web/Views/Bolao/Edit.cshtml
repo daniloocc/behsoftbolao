@@ -1,0 +1,36 @@
+﻿@model DataAccess.Data.Dto.ReadBolaoDto;
+
+@{
+    ViewData["Title"] = $"Bolão - {Model.Codigo}"; 
+}
+
+<h1 class="mt-3">Edit Bolão</h1>
+
+@if(Model is not null)
+{
+
+    <form method="post">
+
+        <div class="mt-3">
+            <label class="form-label">Título</label>
+            <input type="text" class="form-control" asp-for="Codigo" readonly />
+        </div>
+
+        <div class="mt-3">
+            <label class="form-label">Criado em:</label>
+            <input type="text" class="form-control" asp-for="CriadoEm" readonly />
+        </div>
+
+        <div class="mt-3">
+            <label class="form-label">Título</label>
+            <input type="text" class="form-control" asp-for="Titulo" />
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+
+    </form>
+    
+}
+

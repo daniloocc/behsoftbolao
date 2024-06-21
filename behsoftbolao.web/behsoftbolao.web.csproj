@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\behsoftbolao.utils\behsoftbolao.utils.csproj" />
+  </ItemGroup>
+
 </Project>

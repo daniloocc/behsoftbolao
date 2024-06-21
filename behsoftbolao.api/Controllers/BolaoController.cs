@@ -2,8 +2,6 @@
 using BehSoft.DataAccess.Repository.IRepository;
 using behsoftbolao.api.CustomActionFilters;
 using behsoftbolao.api.Managers.Interfaces;
-using Core.Models;
-using Core.Utils;
 using DataAccess.Data.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -16,7 +14,7 @@ namespace behsoftbolao.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class BolaoController : ControllerBase
     {
         private readonly IBolaoManager _bolaoManager;

@@ -31,4 +31,8 @@
     <Folder Include="Logs\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\behsoftbolao.utils\behsoftbolao.utils.csproj" />
+  </ItemGroup>
+
 </Project>

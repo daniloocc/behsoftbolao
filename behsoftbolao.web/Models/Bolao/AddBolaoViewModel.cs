@@ -1,11 +1,10 @@
 ﻿using Behsoft.Utils;
 using System.ComponentModel.DataAnnotations;
 
-namespace DataAccess.Data.Dto;
+namespace behsoftbolao.web.Models.BolaoModel;
 
-public class CreateBolaoDto
+public class AddBolaoViewModel
 {
-
     [Required(ErrorMessage = "O título do Bolão é obrigatório")]
     [StringLength(50, ErrorMessage = "O titulo do bolão deve ter até 50 caracteres")]
     public string Titulo { get; set; } = string.Empty;

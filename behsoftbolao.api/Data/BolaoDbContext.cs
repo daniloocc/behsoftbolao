@@ -1,6 +1,6 @@
-﻿using behsoftbolao.api.Models.Domain;
+﻿using Behsoft.Utils;
+using behsoftbolao.api.Models.Domain;
 using Core.Models;
-using Core.Utils;
 using Database.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
