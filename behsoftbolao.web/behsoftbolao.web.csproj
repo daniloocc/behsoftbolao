@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\behsoftbolao.api\behsoftbolao.api.csproj" />
     <ProjectReference Include="..\behsoftbolao.utils\behsoftbolao.utils.csproj" />
   </ItemGroup>
 

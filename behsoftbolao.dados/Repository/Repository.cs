@@ -1,6 +1,5 @@
 ﻿using BehSoft.DataAccess.Repository.IRepository;
 using behsoftbolao.api.Data;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

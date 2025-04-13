@@ -9,6 +9,7 @@ using BehSoft.DataAccess.Repository.IRepository;
 using behsoftbolao.api.Data;
 using Core.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 

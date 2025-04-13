@@ -32,6 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\behsoftbolao.dados\behsoftbolao.dados.csproj" />
+    <ProjectReference Include="..\behsoftbolao.modelos\behsoftbolao.modelos.csproj" />
     <ProjectReference Include="..\behsoftbolao.utils\behsoftbolao.utils.csproj" />
   </ItemGroup>
 

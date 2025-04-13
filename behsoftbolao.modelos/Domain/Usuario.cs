@@ -1,5 +1,5 @@
 ﻿using Core.Models;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 
 namespace Database.Models;

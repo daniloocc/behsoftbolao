@@ -1,7 +1,6 @@
-﻿@model IEnumerable<DataAccess.Data.Dto.ReadBolaoDto>
-
+﻿
 @{
-    ViewData["Title"] = "seõloB";
+    ViewData["Title"] = "sotanoepmaC";
 }
 
 @section Header {
@@ -9,7 +8,7 @@
     <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-2.0.8/datatables.min.js"></script>
 }
 
-<h1 class="mt-3">seõloB</h1>
+<h1 class="mt-3">sotanoepmaC</h1>
 
 <div class="d-flex justify-content-end">
     <a class="btn btn-secondary" asp-controller="Bolao" asp-action="Add">Criar</a>
@@ -20,11 +19,12 @@
         <tr style="text-align: center;">
             <th>Código</th>
             <th>Título</th>
-            <th>Campeonato</th>
+            <th>Ano</th>
             <th>Criado por</th>
             <th> </th>
         </tr>
     </thead>
+    @*
     <tbody>
         @foreach (var bolao in Model)
         {
@@ -39,6 +39,7 @@
             </tr>
         }
     </tbody>
+    *@
 </table>
 
 

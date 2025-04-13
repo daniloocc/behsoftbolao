@@ -1,4 +1,5 @@
-﻿using behsoftbolao.web.Models.BolaoModel;
+﻿using behsoftbolao.api.Managers.Interfaces;
+using behsoftbolao.web.Models.BolaoModel;
 using DataAccess.Data.Dto;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.Xml;
@@ -9,10 +10,12 @@ namespace behsoftbolao.web.Controllers;
 
 public class BolaoController : Controller
 {
+    private readonly IBolaoManager bolaoManager;
     private readonly IHttpClientFactory _httpClient;
 
-    public BolaoController(IHttpClientFactory httpClient)
+    public BolaoController(IBolaoManager bolaoManager, IHttpClientFactory httpClient)
     {
+        this.bolaoManager = bolaoManager;
         this._httpClient = httpClient;
     }
 

@@ -1,17 +1,19 @@
 ﻿using behsoftbolao.api.Data;
 using behsoftbolao.api.Models.Domain;
 using behsoftbolao.api.Repository.IRepository;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 
 namespace behsoftbolao.api.Repository;
 
 public class LocalImageRepository : IImageRepository
 {
-    private readonly IWebHostEnvironment _environment;
+    private readonly IHostEnvironment _environment;
     private readonly IHttpContextAccessor _accessor;
     private readonly BolaoDbContext _db;
 
     public LocalImageRepository(
-        IWebHostEnvironment environment, 
+        IHostEnvironment environment, 
         IHttpContextAccessor accessor,
         BolaoDbContext db)
     {
